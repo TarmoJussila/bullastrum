@@ -1,16 +1,16 @@
 # Bullastrum
 
-**Bullastrum** is lorep ipsum. Lorem ipsum. Loremp ipsum. Lorem ipsum. Loremp ipsum. Lorem ipsum. Lorem ipsum.
+**Bullastrum** is strategic simulation game where you need to manage a fragile planet and make use of its resources in a thoughtful way. Bullastrum is Latin for "celestial bubble".
 
 The game was created in 48 hours during the Global Game Jam / Finnish Game Jam 2025.
 
 # Watch
 
-Gameplay video: [**Watch**](https://)
+Gameplay video: [**Watch**](https://globalgamejam.org/games/2025/bullastrum-7)
 
 # Download
 
-Executable: [**Download**](https://)
+Executable: [**Download**](https://globalgamejam.org/games/2025/bullastrum-7)
 
 # Build
 
@@ -28,6 +28,6 @@ The game was created with **Unity 6000.0.28f1**.
 
 # Credits - Team Raunio
 
-N/A - N/A
+Code + Graphics = Tarmo Jussila
 
-N/A - N/A
+Music + Sounds = Juhani Haverinen
