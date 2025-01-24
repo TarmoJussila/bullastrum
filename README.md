@@ -1,6 +1,6 @@
-# N/A
+# Bullastrum
 
-**N/A** is lorep ipsum. Lorem ipsum. Loremp ipsum. Lorem ipsum. Loremp ipsum. Lorem ipsum. Loremp ipsum.
+**Bullastrum** is lorep ipsum. Lorem ipsum. Loremp ipsum. Lorem ipsum. Loremp ipsum. Lorem ipsum. Lorem ipsum.
 
 The game was created in 48 hours during the Global Game Jam / Finnish Game Jam 2025.
 
