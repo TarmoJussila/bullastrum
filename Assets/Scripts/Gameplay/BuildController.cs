@@ -10,6 +10,7 @@ namespace Bullastrum.Gameplay
         [Header("Raycast")]
         [SerializeField] private LayerMask _planetLayerMask;
         [SerializeField] private float _raycastMaxDistance;
+        [SerializeField] private Transform _planetTransform;
         
         [Header("Prefabs")]
         [SerializeField] private GameObject _structure;
@@ -27,7 +28,7 @@ namespace Bullastrum.Gameplay
 
         private void Start()
         {
-            _hoverStructure = Instantiate(_structure);
+            _hoverStructure = Instantiate(_structure, _planetTransform, true);
         }
 
         private void Update()
@@ -44,8 +45,7 @@ namespace Bullastrum.Gameplay
 
                     if (_hoverStructure != null)
                     {
-                        _hoverStructure.transform.position = _raycastHitPoint;
-                        _hoverStructure.transform.rotation = rotation;
+                        _hoverStructure.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
 
                         if (Input.GetKeyDown(KeyCode.Mouse0))
                         {
@@ -55,7 +55,8 @@ namespace Bullastrum.Gameplay
                     }
                     else
                     {
-                        _hoverStructure = Instantiate(_structure, _raycastHitPoint, rotation, transform);
+                        _hoverStructure = Instantiate(_structure, _planetTransform, true);
+                        _hoverStructure.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
                     }
                 }
             }

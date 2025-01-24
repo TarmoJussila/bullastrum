@@ -281,6 +281,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114554396374930432, guid: d6e41cea96db7c647a629288fe44568b,
+        type: 3}
+      propertyPath: _planetTransform
+      value: 
+      objectReference: {fileID: 1769178507}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -343,6 +348,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f34871eeaccf474e81e1d7423a975ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1769178507 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4670599815408138, guid: 971bfbb1c5300004c942dc2fc7a47ab4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1778940823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1778940823
 PrefabInstance:
   m_ObjectHideFlags: 0
