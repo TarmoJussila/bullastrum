@@ -1,36 +1,48 @@
 ﻿using Bullastrum.Utility;
 using UnityEngine;
+using UnityEngine.Serialization;
 using ColorUtility = Bullastrum.Utility.ColorUtility;
 
 namespace Bullastrum.Gameplay
 {
     public class Deformer : MonoBehaviour
     {
+        [FormerlySerializedAs("MinScale")]
         [Header("Deform")]
         [Range(0, 1000)]
-        public float MinScale = 10;
+        public float _minScale = 10;
 
+        [FormerlySerializedAs("MaxScale")]
         [Range(0, 1000)]
-        public float MaxScale = 100;
+        public float _maxScale = 100;
 
+        [FormerlySerializedAs("MinStrength")]
         [Range(0, 1.0f)]
-        public float MinStrength = 0.01f;
+        public float _minStrength = 0.01f;
 
+        [FormerlySerializedAs("MaxStrength")]
         [Range(0, 1.0f)]
-        public float MaxStrength = 1.0f;
+        public float _maxStrength = 1.0f;
 
+        [FormerlySerializedAs("Seed")]
         [Header("Noise")]
-        public float Seed;
-        public float SeedMultiplier = 1;
+        public float _seed;
+        [FormerlySerializedAs("SeedMultiplier")]
+        public float _seedMultiplier = 1;
 
+        [FormerlySerializedAs("RecalculateNormals")]
         [Header("Mesh")]
-        public bool RecalculateNormals = true;
-        public bool RecalculateTangents = true;
+        public bool _recalculateNormals = true;
+        [FormerlySerializedAs("RecalculateTangents")]
+        public bool _recalculateTangents = true;
 
+        [FormerlySerializedAs("StartDeformed")]
         [Header("Debug")]
-        public bool StartDeformed = false;
-        public float RandomDeformPointRadius = 1.0f;
-        public ColorUtility.Color RandomDeformPointColor;
+        public bool _startDeformed = false;
+        [FormerlySerializedAs("RandomDeformPointRadius")]
+        public float _randomDeformPointRadius = 1.0f;
+        [FormerlySerializedAs("RandomDeformPointColor")]
+        public ColorUtility.Color _randomDeformPointColor;
 
         private Mesh _mesh;
         private MeshCollider _meshCollider;
@@ -45,7 +57,7 @@ namespace Bullastrum.Gameplay
             _meshCollider = GetComponent<MeshCollider>();
             _baseVertices = _mesh.vertices;
 
-            if (StartDeformed)
+            if (_startDeformed)
             {
                 Deform();
             }
@@ -53,18 +65,18 @@ namespace Bullastrum.Gameplay
 
         public void Deform()
         {
-            float scale = Random.Range(MinScale, MaxScale);
-            float strength = Random.Range(MinStrength, MaxStrength);
+            float scale = Random.Range(_minScale, _maxScale);
+            float strength = Random.Range(_minStrength, _maxStrength);
 
             transform.localScale = new Vector3(scale, scale, scale);
 
             var vertices = new Vector3[_baseVertices.Length];
 
-            Seed = Time.time;
+            _seed = Time.time;
 
-            var timeX = Seed * SeedMultiplier;
-            var timeY = Seed * SeedMultiplier;
-            var timeZ = Seed * SeedMultiplier;
+            var timeX = _seed * _seedMultiplier;
+            var timeY = _seed * _seedMultiplier;
+            var timeZ = _seed * _seedMultiplier;
 
             for (var i = 0; i < vertices.Length; i++)
             {
@@ -91,7 +103,7 @@ namespace Bullastrum.Gameplay
 
         public void Randomize()
         {
-            float strength = Random.Range(MinStrength, MaxStrength);
+            float strength = Random.Range(_minStrength, _maxStrength);
 
             int randomAmount = Random.Range(0, _baseVertices.Length);
 
@@ -99,9 +111,9 @@ namespace Bullastrum.Gameplay
 
             var randomVertices = new Vector3[randomAmount];
 
-            var timeX = Time.time * SeedMultiplier;
-            var timeY = Time.time * SeedMultiplier;
-            var timeZ = Time.time * SeedMultiplier;
+            var timeX = Time.time * _seedMultiplier;
+            var timeY = Time.time * _seedMultiplier;
+            var timeZ = Time.time * _seedMultiplier;
 
             for (int i = 0; i < randomVertices.Length; i++)
             {
@@ -123,12 +135,12 @@ namespace Bullastrum.Gameplay
 
         private void RecalculateMesh()
         {
-            if (RecalculateNormals)
+            if (_recalculateNormals)
             {
                 _mesh.RecalculateNormals();
             }
 
-            if (RecalculateTangents)
+            if (_recalculateTangents)
             {
                 _mesh.RecalculateTangents();
             }

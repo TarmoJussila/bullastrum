@@ -1,51 +1,57 @@
 ﻿using System.Collections.Generic;
 using Bullastrum.Utility;
 using UnityEngine;
+using UnityEngine.Serialization;
 using ColorUtility = Bullastrum.Utility.ColorUtility;
 
 namespace Bullastrum.Gameplay
 {
     public class BuildController : Singleton<BuildController>
     {
+        [FormerlySerializedAs("PlanetLayerMask")]
         [Header("Raycast")]
-        public LayerMask PlanetLayerMask;
-        public float RaycastMaxDistance;
+        public LayerMask _planetLayerMask;
+        [FormerlySerializedAs("RaycastMaxDistance")]
+        public float _raycastMaxDistance;
 
-        private Ray ray;
-        private RaycastHit raycastHit;
-        private Vector3 raycastHitPoint;
-
+        [FormerlySerializedAs("Structure")]
         [Header("Prefabs")]
-        public GameObject Structure;
+        public GameObject _structure;
 
+        [FormerlySerializedAs("BuildingEnabled")]
         [Header("Debug")]
-        public bool BuildingEnabled = true;
-        public float RaycastHitPointRadius = 1.0f;
-        public ColorUtility.Color RaycastHitPointColor;
+        public bool _buildingEnabled = true;
+        [FormerlySerializedAs("RaycastHitPointRadius")]
+        public float _raycastHitPointRadius = 1.0f;
+        [FormerlySerializedAs("RaycastHitPointColor")]
+        public ColorUtility.Color _raycastHitPointColor;
 
+        private Ray _ray;
+        private RaycastHit _raycastHit;
+        private Vector3 _raycastHitPoint;
         private GameObject _hoverStructure;
         private List<GameObject> _structures = new List<GameObject>();
 
         private void Start()
         {
-            _hoverStructure = Instantiate(Structure);
+            _hoverStructure = Instantiate(_structure);
         }
 
         private void Update()
         {
-            if (BuildingEnabled)
+            if (_buildingEnabled)
             {
-                ray = CameraController.Instance.Camera.ScreenPointToRay(Input.mousePosition);
+                _ray = CameraController.Instance.Camera.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out raycastHit, RaycastMaxDistance, PlanetLayerMask))
+                if (Physics.Raycast(_ray, out _raycastHit, _raycastMaxDistance, _planetLayerMask))
                 {
-                    raycastHitPoint = raycastHit.point;
-                    Vector3 relativePosition = raycastHitPoint - raycastHit.transform.position;
+                    _raycastHitPoint = _raycastHit.point;
+                    Vector3 relativePosition = _raycastHitPoint - _raycastHit.transform.position;
                     Quaternion rotation = Quaternion.LookRotation(relativePosition);
 
                     if (_hoverStructure != null)
                     {
-                        _hoverStructure.transform.position = raycastHitPoint;
+                        _hoverStructure.transform.position = _raycastHitPoint;
                         _hoverStructure.transform.rotation = rotation;
 
                         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -56,7 +62,7 @@ namespace Bullastrum.Gameplay
                     }
                     else
                     {
-                        _hoverStructure = Instantiate(Structure, raycastHitPoint, rotation, transform);
+                        _hoverStructure = Instantiate(_structure, _raycastHitPoint, rotation, transform);
                     }
                 }
             }
@@ -64,10 +70,10 @@ namespace Bullastrum.Gameplay
 
         private void OnDrawGizmos()
         {
-            if (raycastHitPoint != Vector3.zero)
+            if (_raycastHitPoint != Vector3.zero)
             {
-                Gizmos.color = ColorUtility.GetColor(RaycastHitPointColor);
-                Gizmos.DrawSphere(raycastHitPoint, RaycastHitPointRadius);
+                Gizmos.color = ColorUtility.GetColor(_raycastHitPointColor);
+                Gizmos.DrawSphere(_raycastHitPoint, _raycastHitPointRadius);
             }
         }
     }
