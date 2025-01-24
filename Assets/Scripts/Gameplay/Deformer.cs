@@ -1,48 +1,36 @@
 ﻿using Bullastrum.Utility;
 using UnityEngine;
-using UnityEngine.Serialization;
 using ColorUtility = Bullastrum.Utility.ColorUtility;
 
 namespace Bullastrum.Gameplay
 {
     public class Deformer : MonoBehaviour
     {
-        [FormerlySerializedAs("MinScale")]
         [Header("Deform")]
         [Range(0, 1000)]
-        public float _minScale = 10;
-
-        [FormerlySerializedAs("MaxScale")]
+        [SerializeField] private float _minScale = 10;
+        
         [Range(0, 1000)]
-        public float _maxScale = 100;
-
-        [FormerlySerializedAs("MinStrength")]
+        [SerializeField] private float _maxScale = 100;
+        
         [Range(0, 1.0f)]
-        public float _minStrength = 0.01f;
-
-        [FormerlySerializedAs("MaxStrength")]
+        [SerializeField] private float _minStrength = 0.01f;
+        
         [Range(0, 1.0f)]
-        public float _maxStrength = 1.0f;
-
-        [FormerlySerializedAs("Seed")]
+        [SerializeField] private float _maxStrength = 1.0f;
+        
         [Header("Noise")]
-        public float _seed;
-        [FormerlySerializedAs("SeedMultiplier")]
-        public float _seedMultiplier = 1;
-
-        [FormerlySerializedAs("RecalculateNormals")]
+        [SerializeField] private float _seed;
+        [SerializeField] private float _seedMultiplier = 1;
+        
         [Header("Mesh")]
-        public bool _recalculateNormals = true;
-        [FormerlySerializedAs("RecalculateTangents")]
-        public bool _recalculateTangents = true;
-
-        [FormerlySerializedAs("StartDeformed")]
+        [SerializeField] private bool _recalculateNormals = true;
+        [SerializeField] private bool _recalculateTangents = true;
+        
         [Header("Debug")]
-        public bool _startDeformed = false;
-        [FormerlySerializedAs("RandomDeformPointRadius")]
-        public float _randomDeformPointRadius = 1.0f;
-        [FormerlySerializedAs("RandomDeformPointColor")]
-        public ColorUtility.Color _randomDeformPointColor;
+        [SerializeField] private bool _startDeformed = false;
+        [SerializeField] private float _randomDeformPointRadius = 1.0f;
+        [SerializeField] private ColorUtility.Color _randomDeformPointColor;
 
         private Mesh _mesh;
         private MeshCollider _meshCollider;

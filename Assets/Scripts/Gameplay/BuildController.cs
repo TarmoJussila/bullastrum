@@ -1,30 +1,23 @@
 ﻿using System.Collections.Generic;
 using Bullastrum.Utility;
 using UnityEngine;
-using UnityEngine.Serialization;
 using ColorUtility = Bullastrum.Utility.ColorUtility;
 
 namespace Bullastrum.Gameplay
 {
     public class BuildController : Singleton<BuildController>
     {
-        [FormerlySerializedAs("PlanetLayerMask")]
         [Header("Raycast")]
-        public LayerMask _planetLayerMask;
-        [FormerlySerializedAs("RaycastMaxDistance")]
-        public float _raycastMaxDistance;
-
-        [FormerlySerializedAs("Structure")]
+        [SerializeField] private LayerMask _planetLayerMask;
+        [SerializeField] private float _raycastMaxDistance;
+        
         [Header("Prefabs")]
-        public GameObject _structure;
-
-        [FormerlySerializedAs("BuildingEnabled")]
+        [SerializeField] private GameObject _structure;
+        
         [Header("Debug")]
-        public bool _buildingEnabled = true;
-        [FormerlySerializedAs("RaycastHitPointRadius")]
-        public float _raycastHitPointRadius = 1.0f;
-        [FormerlySerializedAs("RaycastHitPointColor")]
-        public ColorUtility.Color _raycastHitPointColor;
+        [SerializeField] private bool _buildingEnabled = true;
+        [SerializeField] private float _raycastHitPointRadius = 1.0f;
+        [SerializeField] private ColorUtility.Color _raycastHitPointColor;
 
         private Ray _ray;
         private RaycastHit _raycastHit;
