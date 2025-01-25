@@ -11,6 +11,7 @@ namespace Bullastrum.Gameplay.UI
 
         private void OnEnable()
         {
+            Initialize(GameController.Instance.Population, false);
             GameController.OnPopulationChanged += OnPopulationChanged;
         }
         
@@ -21,8 +22,17 @@ namespace Bullastrum.Gameplay.UI
         
         private void OnPopulationChanged(int count)
         {
+            Initialize(count, true);
+        }
+
+        private void Initialize(int count, bool showAnimation = true)
+        {
             _populationText.text = count.ToString();
-            _animator.SetTrigger(Bounce);
+            if (showAnimation)
+            {
+                _animator.ResetTrigger(Bounce);
+                _animator.SetTrigger(Bounce);
+            }
         }
     }
 }

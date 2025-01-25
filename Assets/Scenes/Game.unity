@@ -336,6 +336,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b35d6015d80531b488220f40f34dca33, type: 3}
+--- !u!114 &394156025 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114554396374930432, guid: d6e41cea96db7c647a629288fe44568b,
+    type: 3}
+  m_PrefabInstance: {fileID: 596409101}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f491a64d55af794dba6ff6769d241c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &596409101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -665,6 +677,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: UICanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 986034212548449589, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 986034212548449589, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 394156025}
+    - target: {fileID: 986034212548449589, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetBuildingType
+      objectReference: {fileID: 0}
+    - target: {fileID: 986034212548449589, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Bullastrum.Gameplay.BuildController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 986034212548449589, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2238669179789091995, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
         type: 3}
       propertyPath: m_Pivot.x
@@ -764,6 +801,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482802130836365834, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482802130836365834, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 394156025}
+    - target: {fileID: 5482802130836365834, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetBuildingType
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482802130836365834, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Bullastrum.Gameplay.BuildController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482802130836365834, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482802130836365834, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

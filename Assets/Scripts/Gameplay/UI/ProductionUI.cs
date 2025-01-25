@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Bullastrum.Gameplay.UI
 {
@@ -12,6 +11,7 @@ namespace Bullastrum.Gameplay.UI
         
         private void OnEnable()
         {
+            Initialize(GameController.Instance.Production, false);
             GameController.OnProductionChanged += OnProductionChanged;
         }
         
@@ -22,8 +22,17 @@ namespace Bullastrum.Gameplay.UI
         
         private void OnProductionChanged(int count)
         {
+            Initialize(count, true);
+        }
+        
+        private void Initialize(int count, bool showAnimation = true)
+        {
             _productionText.text = count.ToString();
-            _animator.SetTrigger(Bounce);
+            if (showAnimation)
+            {
+                _animator.ResetTrigger(Bounce);
+                _animator.SetTrigger(Bounce);
+            }
         }
     }
 }

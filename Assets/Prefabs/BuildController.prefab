@@ -49,7 +49,9 @@ MonoBehaviour:
     m_Bits: 256
   _raycastMaxDistance: 1000
   _planetTransform: {fileID: 0}
-  _structure: {fileID: 8895293624520803335, guid: 95579afdd416e4b4cbde93dba7eb969f,
+  _populationBuildingPrefab: {fileID: 2103201192660845002, guid: fcc8bd6a252e84f749d0fe04e85def81,
+    type: 3}
+  _productionBuildingPrefab: {fileID: 2103201192660845002, guid: 95579afdd416e4b4cbde93dba7eb969f,
     type: 3}
   _buildingEnabled: 1
   _raycastHitPointRadius: 0.1

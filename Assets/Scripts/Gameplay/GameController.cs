@@ -8,6 +8,9 @@ namespace Bullastrum.Gameplay
         public static Action<int> OnPopulationChanged;
         public static Action<int> OnProductionChanged;
         
+        public int Population => _population;
+        public int Production => _production;
+        
         private int _population;
         private int _production;
 
@@ -15,12 +18,14 @@ namespace Bullastrum.Gameplay
         {
             _population++;
             OnPopulationChanged?.Invoke(_population);
+            Log.Message("Population changed: " + _population);
         }
 
         public void AddProduction()
         {
             _production++;
             OnProductionChanged?.Invoke(_production);
+            Log.Message("Production changed: " + _production);
         }
     }
 }

@@ -5,6 +5,12 @@ using ColorUtility = Bullastrum.Utility.ColorUtility;
 
 namespace Bullastrum.Gameplay
 {
+    public enum BuildingType
+    {
+        PopulationBuilding = 0,
+        ProductionBuilding = 1,
+    }
+    
     public class BuildController : Singleton<BuildController>
     {
         [Header("Raycast")]
@@ -13,7 +19,8 @@ namespace Bullastrum.Gameplay
         [SerializeField] private Transform _planetTransform;
         
         [Header("Prefabs")]
-        [SerializeField] private Building _structure;
+        [SerializeField] private Building _populationBuildingPrefab;
+        [SerializeField] private Building _productionBuildingPrefab;
         
         [Header("Debug")]
         [SerializeField] private bool _buildingEnabled = true;
@@ -23,12 +30,13 @@ namespace Bullastrum.Gameplay
         private Ray _ray;
         private RaycastHit _raycastHit;
         private Vector3 _raycastHitPoint;
-        private Building _hoverStructure;
-        private List<Building> _structures = new List<Building>();
+        private Building _currentBuilding;
+        private readonly List<Building> _buildings = new List<Building>();
+        private BuildingType _buildingType;
 
         private void Start()
         {
-            _hoverStructure = Instantiate(_structure, _planetTransform, true);
+            _currentBuilding = Instantiate(GetCurrentBuildingPrefab(), _planetTransform, true);
         }
 
         private void Update()
@@ -43,21 +51,21 @@ namespace Bullastrum.Gameplay
                     Vector3 relativePosition = _raycastHitPoint - _raycastHit.transform.position;
                     Quaternion rotation = Quaternion.LookRotation(relativePosition);
 
-                    if (_hoverStructure != null)
+                    if (_currentBuilding != null)
                     {
-                        _hoverStructure.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
+                        _currentBuilding.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
 
                         if (Input.GetKeyDown(KeyCode.Mouse0))
                         {
-                            _structures.Add(_hoverStructure);
-                            _hoverStructure = null;
-                            GameController.Instance.AddPopulation();
+                            _buildings.Add(_currentBuilding);
+                            _currentBuilding = null;
+                            NotifyBuildingPlaced();
                         }
                     }
                     else
                     {
-                        _hoverStructure = Instantiate(_structure, _planetTransform, true);
-                        _hoverStructure.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
+                        _currentBuilding = Instantiate(GetCurrentBuildingPrefab(), _planetTransform, true);
+                        _currentBuilding.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
                     }
                 }
             }
@@ -70,6 +78,43 @@ namespace Bullastrum.Gameplay
                 Gizmos.color = ColorUtility.GetColor(_raycastHitPointColor);
                 Gizmos.DrawSphere(_raycastHitPoint, _raycastHitPointRadius);
             }
+        }
+
+        private void NotifyBuildingPlaced()
+        {
+            Log.Message("Building placed: " + _buildingType + " | Buildings: " + _buildings.Count);
+            if (_buildingType == BuildingType.PopulationBuilding)
+            {
+                GameController.Instance.AddPopulation();
+            }
+            else if (_buildingType == BuildingType.ProductionBuilding)
+            {
+                GameController.Instance.AddProduction();
+            }
+        }
+
+        private Building GetCurrentBuildingPrefab()
+        {
+            if (_buildingType == BuildingType.PopulationBuilding)
+            {
+                return _populationBuildingPrefab;
+            }
+            else if (_buildingType == BuildingType.ProductionBuilding)
+            {
+                return _productionBuildingPrefab;
+            }
+            return null;
+        }
+
+        public void SetBuildingType(BuildingType buildingType)
+        {
+            _buildingType = buildingType;
+            Log.Message("Set building type: " + _buildingType);
+        }
+
+        public void SetBuildingType(int buildingType)
+        {
+            SetBuildingType((BuildingType)buildingType);
         }
     }
 }
