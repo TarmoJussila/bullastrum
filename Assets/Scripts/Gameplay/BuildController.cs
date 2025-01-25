@@ -13,7 +13,7 @@ namespace Bullastrum.Gameplay
         [SerializeField] private Transform _planetTransform;
         
         [Header("Prefabs")]
-        [SerializeField] private GameObject _structure;
+        [SerializeField] private Building _structure;
         
         [Header("Debug")]
         [SerializeField] private bool _buildingEnabled = true;
@@ -23,8 +23,8 @@ namespace Bullastrum.Gameplay
         private Ray _ray;
         private RaycastHit _raycastHit;
         private Vector3 _raycastHitPoint;
-        private GameObject _hoverStructure;
-        private List<GameObject> _structures = new List<GameObject>();
+        private Building _hoverStructure;
+        private List<Building> _structures = new List<Building>();
 
         private void Start()
         {
@@ -51,6 +51,7 @@ namespace Bullastrum.Gameplay
                         {
                             _structures.Add(_hoverStructure);
                             _hoverStructure = null;
+                            GameController.Instance.AddPopulation();
                         }
                     }
                     else
