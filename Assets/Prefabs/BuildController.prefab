@@ -48,7 +48,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _raycastMaxDistance: 1000
-  _structure: {fileID: 1942478833791890, guid: 6243ae2ecefcff04f81f740c95761c8b, type: 3}
+  _planetTransform: {fileID: 0}
+  _structure: {fileID: 8895293624520803335, guid: 95579afdd416e4b4cbde93dba7eb969f,
+    type: 3}
   _buildingEnabled: 1
   _raycastHitPointRadius: 0.1
   _raycastHitPointColor: 4
