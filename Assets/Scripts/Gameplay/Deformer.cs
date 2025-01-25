@@ -27,6 +27,9 @@ namespace Bullastrum.Gameplay
         [SerializeField] private bool _recalculateNormals = true;
         [SerializeField] private bool _recalculateTangents = true;
         
+        [Header("Material")]
+        [SerializeField] private Material _material;
+        
         [Header("Debug")]
         [SerializeField] private bool _startDeformed = false;
         [SerializeField] private float _randomDeformPointRadius = 1.0f;
@@ -119,6 +122,12 @@ namespace Bullastrum.Gameplay
             _mesh.vertices = _currentVertices;
 
             RecalculateMesh();
+        }
+
+        public void Noise()
+        {
+            float seedValue = Mathf.PingPong(Time.time * 1.0f, 1.0f);
+            _material.SetFloat("_Seed", seedValue);
         }
 
         private void RecalculateMesh()

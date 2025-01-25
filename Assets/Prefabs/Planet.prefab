@@ -144,6 +144,7 @@ MonoBehaviour:
   _seedMultiplier: 100
   _recalculateNormals: 1
   _recalculateTangents: 1
+  _material: {fileID: 2100000, guid: 0928b2ac2c42c4f4e8024c2afe171aae, type: 2}
   _startDeformed: 0
   _randomDeformPointRadius: 1
   _randomDeformPointColor: 5
