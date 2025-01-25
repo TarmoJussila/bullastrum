@@ -26,8 +26,8 @@ Shader "Custom/Shader_PlanetSurface"
             struct v2f
             {
                 float4 pos : SV_POSITION;
-                float3 localPos : TEXCOORD0;  // Local position for mapping
-                float3 normal : TEXCOORD1;   // Object space normal for lighting
+                float3 localPos : TEXCOORD0; // Local position for mapping
+                float3 normal : TEXCOORD1; // Object space normal for lighting
             };
 
             // Directional light direction
@@ -98,9 +98,9 @@ Shader "Custom/Shader_PlanetSurface"
                 float desertThreshold = 0.6; // Between ocean and land, some regions are deserts
 
                 // Calculate colors for different biomes
-                float3 oceanColor = float3(0.0, 0.3, 0.8);       // Blue ocean
-                float3 landColor = float3(0.2, 0.8, 0.3);        // Green land
-                float3 desertColor = float3(0.8, 0.7, 0.2);      // Yellowish sand
+                float3 oceanColor = float3(0.0, 0.3, 0.8); // Blue ocean
+                float3 landColor = float3(0.2, 0.8, 0.3); // Green land
+                float3 desertColor = float3(0.8, 0.7, 0.2); // Yellowish sand
 
                 // Blend between ocean, desert, and land
                 float3 color;
