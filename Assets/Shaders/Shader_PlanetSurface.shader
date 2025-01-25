@@ -3,6 +3,10 @@ Shader "Custom/Shader_PlanetSurface"
     Properties
     {
         _LightDir ("Light Direction", Vector) = (0, 1, 0)
+        _NoiseScale ("Noise Scale", Float) = 1.0
+        _NoiseFrequency ("Noise Frequency", Float) = 5.0
+        _ElevationIntensity ("Elevation Intensity", Float) = 1.0
+        _Seed ("Random Seed", Float) = 0.1
     }
     SubShader
     {
@@ -32,11 +36,16 @@ Shader "Custom/Shader_PlanetSurface"
 
             // Directional light direction
             float4 _LightDir;
+            // Customizable properties
+            float _NoiseScale;
+            float _NoiseFrequency;
+            float _ElevationIntensity;
+            float _Seed;
 
             // Hash function for random values
             float hash(float3 p)
             {
-                p = frac(p * 0.3183099 + float3(0.1, 0.2, 0.3));
+                p = frac(p * 0.3183099 + float3(0.1, 0.2, 0.3) + _Seed);
                 p *= 17.0;
                 return frac(p.x * p.y * p.z * (p.x + p.y + p.z));
             }
@@ -90,8 +99,8 @@ Shader "Custom/Shader_PlanetSurface"
                 // Map local position to a spherical shape
                 float3 spherePos = normalize(i.localPos);
 
-                // Generate elevation data using FBM
-                float elevation = fbm(spherePos * 5.0); // Higher frequency for detailed patterns
+                // Generate elevation data using FBM with adjustable parameters
+                float elevation = fbm(spherePos * _NoiseScale) * _ElevationIntensity;
 
                 // Define thresholds for different terrain types
                 float oceanThreshold = 0.4; // Below this is ocean
