@@ -1,27 +1,34 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Bullastrum.Gameplay.UI
 {
     public class CurrencyUI : MonoBehaviour
     {
         [SerializeField] private TMPro.TextMeshProUGUI _currencyText;
-        [SerializeField] private TMPro.TextMeshProUGUI _incomeText;
-        [SerializeField] private TMPro.TextMeshProUGUI _outcomeText;
+        [FormerlySerializedAs("_incomeText")] [SerializeField] private TMPro.TextMeshProUGUI _revenueText;
+        [FormerlySerializedAs("_outcomeText")] [SerializeField] private TMPro.TextMeshProUGUI _expensesText;
+        [SerializeField] private TMPro.TextMeshProUGUI _profitText;
         [SerializeField] private Animator _animator;
+
+        [Header("Settings")]
+        [SerializeField] private Color _plusColor;
+        [SerializeField] private Color _minusColor;
         
         private static readonly int Bounce = Animator.StringToHash("Bounce");
         
         private void OnEnable()
         {
             Initialize(GameController.Instance.Currency, false);
+            OnEconomyChanged(0, 0, 0);
             GameController.OnCurrencyChanged += OnCurrencyChanged;
-            GameController.OnCurrencyRateChanged += OnCurrencyRateChanged;
+            GameController.OnEconomyChanged += OnEconomyChanged;
         }
 
         private void OnDestroy()
         {
             GameController.OnCurrencyChanged -= OnCurrencyChanged;
-            GameController.OnCurrencyRateChanged -= OnCurrencyRateChanged;
+            GameController.OnEconomyChanged -= OnEconomyChanged;
         }
         
         private void OnCurrencyChanged(int count)
@@ -29,10 +36,15 @@ namespace Bullastrum.Gameplay.UI
             Initialize(count, true);
         }
         
-        private void OnCurrencyRateChanged(int income, int outcome)
+        private void OnEconomyChanged(int revenue, int expenses, int profit)
         {
-            _incomeText.text = (income >= 0 ? "+" : "-") + income.ToString();
-            _outcomeText.text = "-" + outcome.ToString();
+            _revenueText.text = (revenue >= 0 ? "+" : "") + revenue.ToString();
+            _expensesText.text = "-" + expenses.ToString();
+            _profitText.text = (profit >= 0 ? "+" : "") + profit.ToString();
+            
+            _revenueText.color = revenue >= 0 ? _plusColor : _minusColor;
+            _expensesText.color = _minusColor;
+            _profitText.color = profit >= 0 ? _plusColor : _minusColor;
         }
         
         private void Initialize(int count, bool showAnimation = true)

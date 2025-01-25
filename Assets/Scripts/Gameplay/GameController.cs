@@ -9,7 +9,7 @@ namespace Bullastrum.Gameplay
         public static Action<int> OnPopulationChanged;
         public static Action<int> OnProductionChanged;
         public static Action<int> OnCurrencyChanged;
-        public static Action<int, int> OnCurrencyRateChanged;
+        public static Action<int, int, int> OnEconomyChanged;
         
         public int Population => _population;
         public int Production => _production;
@@ -18,21 +18,23 @@ namespace Bullastrum.Gameplay
         [SerializeField] private int _population;
         [SerializeField] private int _production;
         [SerializeField] private int _currency;
+        [SerializeField] private float _economyUpdateRate = 10f;
 
-        private int _currencyIncome;
-        private int _currencyOutcome;
+        private int _currencyRevenue;
+        private int _currencyExpenses;
         private float _timer;
         
         private void Update()
         {
             _timer += Time.deltaTime;
-            if (_timer >= 1f)
+            if (_timer >= _economyUpdateRate)
             {
                 _timer = 0f;
-                AddCurrency(GetCurrencyRate());
-                _currencyIncome = _production;
-                _currencyOutcome = _population;
-                OnCurrencyRateChanged?.Invoke(_currencyIncome, _currencyOutcome);
+                _currencyRevenue = _production;
+                _currencyExpenses = _population;
+                int profit = _currencyRevenue - _currencyExpenses;
+                AddCurrency(profit);
+                OnEconomyChanged?.Invoke(_currencyRevenue, _currencyExpenses, profit);
             }
         }
 
@@ -55,11 +57,6 @@ namespace Bullastrum.Gameplay
             _currency += amount;
             OnCurrencyChanged?.Invoke(_currency);
             Log.Message("Currency changed: " + _currency);
-        }
-
-        public int GetCurrencyRate()
-        {
-            return _production - _population;
         }
     }
 }
