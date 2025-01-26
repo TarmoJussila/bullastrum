@@ -32,7 +32,7 @@ namespace Bullastrum.Gameplay
         private bool _gameActive = false;
 
         private const int BaseBuildCost = 100;
-        private const float BuildCostIncreaseMultiplier = 0.5f;
+        private const float BuildCostIncreaseMultiplier = 0.25f;
 
         private void Start()
         {
