@@ -46,5 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _population: 0
   _production: 0
-  _currency: 1000
+  _currency: 0
   _economyUpdateRate: 1
+  _startingCurrency: 2500
