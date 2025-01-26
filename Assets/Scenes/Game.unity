@@ -974,6 +974,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8830597694846693209, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 394156025}
+    - target: {fileID: 8830597694846693209, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetDemolishMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830597694846693209, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Bullastrum.Gameplay.BuildController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830597694846693209, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

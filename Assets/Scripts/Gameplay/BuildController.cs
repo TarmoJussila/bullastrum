@@ -7,6 +7,7 @@ namespace Bullastrum.Gameplay
 {
     public enum BuildingType
     {
+        Demolish = -1,
         PopulationBuilding = 0,
         ProductionBuilding = 1,
     }
@@ -22,6 +23,7 @@ namespace Bullastrum.Gameplay
         [Header("Prefabs")]
         [SerializeField] private Building _populationBuildingPrefab;
         [SerializeField] private Building _productionBuildingPrefab;
+        [SerializeField] private GameObject _demolishPrefab;
         
         [Header("Debug")]
         [SerializeField] private bool _buildingEnabled = true;
@@ -32,11 +34,14 @@ namespace Bullastrum.Gameplay
         private RaycastHit _raycastHit;
         private Vector3 _raycastHitPoint;
         private Building _currentBuilding;
+        private GameObject _demolishObject;
         private readonly List<Building> _buildings = new List<Building>();
         private BuildingType _buildingType;
+        private bool _demolishMode;
 
         private void Start()
         {
+            _demolishMode = false;
             _planetTransform = FindFirstObjectByType<Planet>().transform;
             _currentBuilding = Instantiate(GetCurrentBuildingPrefab(), _planetTransform, true);
             _currentBuilding.SetColliderEnabled(false);
@@ -58,6 +63,33 @@ namespace Bullastrum.Gameplay
                     _raycastHitPoint = _raycastHit.point;
                     Vector3 relativePosition = _raycastHitPoint - _raycastHit.transform.position;
                     Quaternion rotation = Quaternion.LookRotation(relativePosition);
+
+                    if (_demolishMode)
+                    {
+                        if (_demolishObject != null)
+                        {
+                            _demolishObject.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
+                        }
+                        
+                        if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            if (Physics.Raycast(_ray, out _raycastHit, _raycastMaxDistance, _buildingLayerMask))
+                            {
+                                var building = _raycastHit.transform.GetComponent<Building>();
+                                if (building != null)
+                                {
+                                    int demolishCost = GetBuildingDemolishCost(building.BuildingType);
+                                    GameController.Instance.AddCurrency(demolishCost);
+                                    Destroy(building.gameObject);
+                                }
+                                else
+                                {
+                                    Log.Message("Cannot demolish non-building object!");
+                                }
+                            }
+                        }
+                        return;
+                    }
 
                     if (_currentBuilding != null)
                     {
@@ -130,6 +162,19 @@ namespace Bullastrum.Gameplay
             }
             return int.MaxValue;
         }
+        
+        private int GetBuildingDemolishCost(BuildingType buildingType)
+        {
+            if (buildingType == BuildingType.PopulationBuilding)
+            {
+                return Mathf.RoundToInt(GameController.Instance.PopulationBuildCost / 2f);
+            }
+            else if (buildingType == BuildingType.ProductionBuilding)
+            {
+                return Mathf.RoundToInt(GameController.Instance.ProductionBuildCost / 2f);
+            }
+            return 0;
+        }
 
         private Building GetCurrentBuildingPrefab()
         {
@@ -160,6 +205,27 @@ namespace Bullastrum.Gameplay
                 }
                 _currentBuilding = Instantiate(GetCurrentBuildingPrefab(), _planetTransform, true);
                 _currentBuilding.SetColliderEnabled(false);
+            }
+            DisableDemolishMode();
+        }
+
+        public void SetDemolishMode()
+        {
+            if (_currentBuilding != null)
+            {
+                Destroy(_currentBuilding.gameObject);
+                _currentBuilding = null;
+            }
+            _demolishObject = Instantiate(_demolishPrefab, _planetTransform, true);
+            _demolishMode = true;
+        }
+
+        private void DisableDemolishMode()
+        {
+            _demolishMode = false;
+            if (_demolishObject != null)
+            {
+                Destroy(_demolishObject);
             }
         }
 

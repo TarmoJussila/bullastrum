@@ -5,10 +5,13 @@ namespace Bullastrum.Gameplay
 {
     public class Building : MonoBehaviour
     {
+        public BuildingType BuildingType => _buildingType;
+        
         [Header("Models")]
         [SerializeField] private List<GameObject> _models = new List<GameObject>();
         
         [Header("Settings")]
+        [SerializeField] private BuildingType _buildingType;
         [SerializeField] private bool _randomizeModelOnAwake = true;
         
         private BoxCollider _boxCollider;

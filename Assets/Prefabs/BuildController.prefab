@@ -56,7 +56,8 @@ MonoBehaviour:
     type: 3}
   _productionBuildingPrefab: {fileID: 2103201192660845002, guid: 95579afdd416e4b4cbde93dba7eb969f,
     type: 3}
-  _buildCost: 100
+  _demolishPrefab: {fileID: 8241595604000218067, guid: 1a6eda1ae23a0374bb2ae8a77d05805d,
+    type: 3}
   _buildingEnabled: 1
   _raycastHitPointRadius: 0.1
   _raycastHitPointColor: 4
