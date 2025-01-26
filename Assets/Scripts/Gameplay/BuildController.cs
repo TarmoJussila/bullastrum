@@ -146,8 +146,21 @@ namespace Bullastrum.Gameplay
 
         public void SetBuildingType(BuildingType buildingType)
         {
+            bool buildingTypeChanged = _buildingType != buildingType;
+            
             _buildingType = buildingType;
             Log.Message("Set building type: " + _buildingType);
+            
+            if (buildingTypeChanged)
+            {
+                if (_currentBuilding != null)
+                {
+                    Destroy(_currentBuilding.gameObject);
+                    _currentBuilding = null;
+                }
+                _currentBuilding = Instantiate(GetCurrentBuildingPrefab(), _planetTransform, true);
+                _currentBuilding.SetColliderEnabled(false);
+            }
         }
 
         public void SetBuildingType(int buildingType)
