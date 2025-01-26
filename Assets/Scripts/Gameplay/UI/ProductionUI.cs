@@ -51,20 +51,18 @@ namespace Bullastrum.Gameplay.UI
         
         private void OnEconomyChanged(int revenue, int expenses, int profit, int baseProduction, int productionMultiplier)
         {
-            if (_productionMultiplier != productionMultiplier)
-            {
-                Initialize(baseProduction, baseProduction > 0);
-            }
-            else if (_baseProduction != baseProduction)
-            {
-                Initialize(baseProduction, baseProduction > 0);
-            }
+            bool didProductionChange = _productionMultiplier != productionMultiplier || _baseProduction != baseProduction;
             
             _productionMultiplier = productionMultiplier;
             _baseProduction = baseProduction;
             _baseProductionText.text = baseProduction.ToString();
             _productionMultiplierText.text = "x " + productionMultiplier.ToString();
             _totalProductionText.text = (baseProduction * productionMultiplier).ToString();
+
+            if (didProductionChange)
+            {
+                Initialize(baseProduction, false);
+            }
         }
         
         private void Initialize(int count, bool showAnimation = true)
