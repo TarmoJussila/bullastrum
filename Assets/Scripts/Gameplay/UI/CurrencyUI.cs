@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Bullastrum.Gameplay.UI
 {
     public class CurrencyUI : MonoBehaviour
     {
         [SerializeField] private TMPro.TextMeshProUGUI _currencyText;
-        [FormerlySerializedAs("_incomeText")] [SerializeField] private TMPro.TextMeshProUGUI _revenueText;
-        [FormerlySerializedAs("_outcomeText")] [SerializeField] private TMPro.TextMeshProUGUI _expensesText;
+        [SerializeField] private TMPro.TextMeshProUGUI _revenueText;
+        [SerializeField] private TMPro.TextMeshProUGUI _expensesText;
         [SerializeField] private TMPro.TextMeshProUGUI _profitText;
         [SerializeField] private Animator _animator;
 
@@ -19,24 +18,28 @@ namespace Bullastrum.Gameplay.UI
         
         private void OnEnable()
         {
-            Initialize(GameController.Instance.Currency, false);
-            OnEconomyChanged(0, 0, 0);
             GameController.OnCurrencyChanged += OnCurrencyChanged;
             GameController.OnEconomyChanged += OnEconomyChanged;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             GameController.OnCurrencyChanged -= OnCurrencyChanged;
             GameController.OnEconomyChanged -= OnEconomyChanged;
         }
-        
+
+        private void Start()
+        {
+            Initialize(GameController.Instance.Currency, false);
+            OnEconomyChanged(0, 0, 0, 0, 0);
+        }
+
         private void OnCurrencyChanged(int count)
         {
             Initialize(count, true);
         }
         
-        private void OnEconomyChanged(int revenue, int expenses, int profit)
+        private void OnEconomyChanged(int revenue, int expenses, int profit, int baseProduction, int productionMultiplier)
         {
             _revenueText.text = (revenue >= 0 ? "+" : "") + revenue.ToString();
             _expensesText.text = "-" + expenses.ToString();

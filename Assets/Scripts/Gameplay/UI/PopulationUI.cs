@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Bullastrum.Gameplay.UI
@@ -14,15 +15,19 @@ namespace Bullastrum.Gameplay.UI
 
         private void OnEnable()
         {
-            Initialize(GameController.Instance.Population, false);
             GameController.OnPopulationChanged += OnPopulationChanged;
         }
         
-        private void OnDestroy()
+        private void OnDisable()
         {
             GameController.OnPopulationChanged -= OnPopulationChanged;
         }
-        
+
+        private void Start()
+        {
+            Initialize(GameController.Instance.Population, false);
+        }
+
         private void Update()
         {
             if (_timer > 0f)
