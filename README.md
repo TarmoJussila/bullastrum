@@ -1,8 +1,12 @@
-# Bullastrum
+# BULLASTRUM
 
 **Bullastrum** is strategic simulation game where you need to manage a fragile planet and balance its resources in a thoughtful way. Build up your population and boost your production - but keep them balanced to avoid bursting your bubble! Bullastrum is Latin for "celestial bubble".
 
 The game was created in 48 hours during the Global Game Jam / Finnish Game Jam 2025.
+
+# History
+
+While the general concept of Bullastrum was ideated during the Global Game Jam 2025, the game uses building assets from previously unreleased projects of ours from 2008 and 2011. We were glad to find use for these assets, as the games they were originally made for never got to be released. We hope you enjoy the style they bring in the game!
 
 # Watch
 
