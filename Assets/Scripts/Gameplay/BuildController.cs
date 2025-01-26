@@ -22,9 +22,6 @@ namespace Bullastrum.Gameplay
         [Header("Prefabs")]
         [SerializeField] private Building _populationBuildingPrefab;
         [SerializeField] private Building _productionBuildingPrefab;
-
-        [Header("Settings")]
-        [SerializeField] private int _buildCost = 100;
         
         [Header("Debug")]
         [SerializeField] private bool _buildingEnabled = true;
@@ -66,7 +63,7 @@ namespace Bullastrum.Gameplay
                     {
                         _currentBuilding.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
 
-                        if (GameController.Instance.Currency < _buildCost)
+                        if (GameController.Instance.Currency < GetCurrentBuildingCost())
                         {
                             Log.Message("Not enough currency to build: " + _buildingType);
                             return;
@@ -110,14 +107,28 @@ namespace Bullastrum.Gameplay
             Log.Message("Building placed: " + _buildingType + " | Buildings: " + _buildings.Count);
             if (_buildingType == BuildingType.PopulationBuilding)
             {
+                GameController.Instance.RemoveCurrency(GameController.Instance.PopulationBuildCost);
                 GameController.Instance.AddPopulation();
             }
             else if (_buildingType == BuildingType.ProductionBuilding)
             {
+                GameController.Instance.RemoveCurrency(GameController.Instance.ProductionBuildCost);
                 GameController.Instance.AddProduction();
             }
-            GameController.Instance.RemoveCurrency(_buildCost);
             AudioPlayer.Instance.Play();
+        }
+
+        private int GetCurrentBuildingCost()
+        {
+            if (_buildingType == BuildingType.PopulationBuilding)
+            {
+                return GameController.Instance.PopulationBuildCost;
+            }
+            else if (_buildingType == BuildingType.ProductionBuilding)
+            {
+                return GameController.Instance.ProductionBuildCost;
+            }
+            return int.MaxValue;
         }
 
         private Building GetCurrentBuildingPrefab()

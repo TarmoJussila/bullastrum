@@ -16,6 +16,8 @@ namespace Bullastrum.Gameplay
         public int Population => _population;
         public int Production => _production;
         public int Currency => _currency;
+        public int PopulationBuildCost => Mathf.RoundToInt(((Population * BuildCostIncreaseMultiplier) + 1) * BaseBuildCost);
+        public int ProductionBuildCost => Mathf.RoundToInt(((Production * BuildCostIncreaseMultiplier) + 1) * BaseBuildCost);
         public bool GameActive => _gameActive;
         
         [SerializeField] private int _population;
@@ -28,6 +30,9 @@ namespace Bullastrum.Gameplay
         private int _currencyExpenses;
         private float _timer;
         private bool _gameActive = false;
+
+        private const int BaseBuildCost = 100;
+        private const float BuildCostIncreaseMultiplier = 0.5f;
 
         private void Start()
         {

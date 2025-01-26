@@ -8,11 +8,13 @@ namespace Bullastrum.Gameplay.UI
         [SerializeField] private TMPro.TextMeshProUGUI _baseProductionText;
         [SerializeField] private TMPro.TextMeshProUGUI _productionMultiplierText;
         [SerializeField] private TMPro.TextMeshProUGUI _totalProductionText;
+        [SerializeField] private TMPro.TextMeshProUGUI _productionBuildCostText;
         [SerializeField] private Animator _animator;
         [SerializeField] private float _animationDelay = 0.1f;
 
         private float _timer;
         private int _productionMultiplier;
+        private int _baseProduction;
         
         private static readonly int Bounce = Animator.StringToHash("Bounce");
         
@@ -53,8 +55,13 @@ namespace Bullastrum.Gameplay.UI
             {
                 Initialize(baseProduction, baseProduction > 0);
             }
+            else if (_baseProduction != baseProduction)
+            {
+                Initialize(baseProduction, baseProduction > 0);
+            }
             
             _productionMultiplier = productionMultiplier;
+            _baseProduction = baseProduction;
             _baseProductionText.text = baseProduction.ToString();
             _productionMultiplierText.text = "x " + productionMultiplier.ToString();
             _totalProductionText.text = (baseProduction * productionMultiplier).ToString();
@@ -63,6 +70,7 @@ namespace Bullastrum.Gameplay.UI
         private void Initialize(int count, bool showAnimation = true)
         {
             _productionText.text = (count * _productionMultiplier).ToString();
+            _productionBuildCostText.text = GameController.Instance.ProductionBuildCost.ToString();
             if (showAnimation && _timer <= 0f)
             {
                 _animator.ResetTrigger(Bounce);

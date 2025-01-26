@@ -888,6 +888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _populationText: {fileID: 4167778024907519252}
+  _populationBuildCostText: {fileID: 1814618933196336130}
   _animator: {fileID: 6658549939492846396}
   _animationDelay: 0.1
 --- !u!95 &6658549939492846396
@@ -2139,7 +2140,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -40, y: 0}
+  m_SizeDelta: {x: -30, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6010874723827997865
 CanvasRenderer:
@@ -3019,7 +3020,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -40, y: 0}
+  m_SizeDelta: {x: -30, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5491448780989907684
 CanvasRenderer:
@@ -4486,6 +4487,7 @@ MonoBehaviour:
   _baseProductionText: {fileID: 7468462625677819693}
   _productionMultiplierText: {fileID: 981770908082827317}
   _totalProductionText: {fileID: 4931223443408134551}
+  _productionBuildCostText: {fileID: 7833491975429597130}
   _animator: {fileID: 114758558428088223}
   _animationDelay: 0.1
 --- !u!95 &114758558428088223

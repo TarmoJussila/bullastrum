@@ -6,6 +6,7 @@ namespace Bullastrum.Gameplay.UI
     public class PopulationUI : MonoBehaviour
     {
         [SerializeField] private TMPro.TextMeshProUGUI _populationText;
+        [SerializeField] private TMPro.TextMeshProUGUI _populationBuildCostText;
         [SerializeField] private Animator _animator;
         [SerializeField] private float _animationDelay = 0.1f;
         
@@ -44,6 +45,7 @@ namespace Bullastrum.Gameplay.UI
         private void Initialize(int count, bool showAnimation = true)
         {
             _populationText.text = count.ToString();
+            _populationBuildCostText.text = GameController.Instance.PopulationBuildCost.ToString();
             if (showAnimation && _timer <= 0f)
             {
                 _animator.ResetTrigger(Bounce);
