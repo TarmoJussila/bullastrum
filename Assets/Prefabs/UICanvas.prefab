@@ -797,6 +797,9 @@ MonoBehaviour:
   _menuUI: {fileID: 5303931426773586525}
   _gameUI: {fileID: 1420023561510534416}
   _gameOverUI: {fileID: 6745733606416761603}
+  _worldTextPrefab: {fileID: 2646364331432911839, guid: df1d0760eab812847a44d8e10bc39fed,
+    type: 3}
+  _worldTextDelay: 0.5
 --- !u!1 &915204306773423506
 GameObject:
   m_ObjectHideFlags: 0

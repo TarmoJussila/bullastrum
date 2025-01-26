@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Bullastrum.Gameplay.UI;
 using Bullastrum.Utility;
 using UnityEngine;
 using ColorUtility = Bullastrum.Utility.ColorUtility;
@@ -24,6 +25,9 @@ namespace Bullastrum.Gameplay
         [SerializeField] private Building _populationBuildingPrefab;
         [SerializeField] private Building _productionBuildingPrefab;
         [SerializeField] private GameObject _demolishPrefab;
+
+        [Header("Settings")]
+        [SerializeField] private Color _worldTextColor;
         
         [Header("Debug")]
         [SerializeField] private bool _buildingEnabled = true;
@@ -102,18 +106,20 @@ namespace Bullastrum.Gameplay
                     if (_currentBuilding != null)
                     {
                         _currentBuilding.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
-
-                        if (GameController.Instance.Currency < GetCurrentBuildingCost())
-                        {
-                            Log.Message("Not enough currency to build: " + _buildingType);
-                            return;
-                        }
                         
                         if (Input.GetKeyDown(KeyCode.Mouse0))
                         {
+                            if (GameController.Instance.Currency < GetCurrentBuildingCost())
+                            {
+                                Log.Message("Not enough currency to build: " + _buildingType);
+                                UIController.Instance.ShowWorldText("Not enough currency", _raycastHitPoint, _worldTextColor);
+                                return;
+                            }
+                            
                             if (Physics.Raycast(_ray, out _raycastHit, _raycastMaxDistance, _buildingLayerMask))
                             {
                                 Log.Message("Cannot build on top of another building");
+                                UIController.Instance.ShowWorldText("Location is occupied", _raycastHitPoint, _worldTextColor);
                                 return;
                             }
                             

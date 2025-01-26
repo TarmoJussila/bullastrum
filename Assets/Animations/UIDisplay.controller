@@ -11,19 +11,19 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 3134271417419287188}
-    m_Position: {x: 290, y: 110, z: 0}
+    m_Position: {x: 300, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -232332215860088972}
-    m_Position: {x: 290, y: -10, z: 0}
+    m_Position: {x: 300, y: -40, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 2943391544482945677}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 40, y: 120, z: 0}
-  m_EntryPosition: {x: 310, y: -100, z: 0}
-  m_ExitPosition: {x: 310, y: 250, z: 0}
+  m_AnyStatePosition: {x: 40, y: 70, z: 0}
+  m_EntryPosition: {x: 320, y: -130, z: 0}
+  m_ExitPosition: {x: 320, y: 170, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -232332215860088972}
 --- !u!1101 &-1741524463240464596
@@ -55,7 +55,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle
+  m_Name: UIDisplay_Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -134,7 +134,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bounce
+  m_Name: UIDisplay_Bounce
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
