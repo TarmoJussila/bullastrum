@@ -91,6 +91,7 @@ namespace Bullastrum.Gameplay
             {
                 GameController.Instance.AddProduction();
             }
+            AudioPlayer.Instance.Play();
         }
 
         private Building GetCurrentBuildingPrefab()
