@@ -80,6 +80,14 @@ namespace Bullastrum.Gameplay
                                 {
                                     int demolishCost = GetBuildingDemolishCost(building.BuildingType);
                                     GameController.Instance.AddCurrency(demolishCost);
+                                    if (building.BuildingType == BuildingType.PopulationBuilding)
+                                    {
+                                        GameController.Instance.RemovePopulation();
+                                    }
+                                    else if (building.BuildingType == BuildingType.ProductionBuilding)
+                                    {
+                                        GameController.Instance.RemoveProduction();
+                                    }
                                     Destroy(building.gameObject);
                                 }
                                 else

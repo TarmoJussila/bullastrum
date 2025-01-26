@@ -73,11 +73,31 @@ namespace Bullastrum.Gameplay
             Log.Message("Population changed: " + _population);
         }
 
+        public void RemovePopulation()
+        {
+            if (_population > 0)
+            {
+                _population--;
+                OnPopulationChanged?.Invoke(_population);
+                Log.Message("Population removed: " + _population);
+            }
+        }
+
         public void AddProduction()
         {
             _production++;
             OnProductionChanged?.Invoke(_production);
             Log.Message("Production changed: " + _production);
+        }
+        
+        public void RemoveProduction()
+        {
+            if (_production > 0)
+            {
+                _production--;
+                OnProductionChanged?.Invoke(_production);
+                Log.Message("Production removed: " + _production);
+            }
         }
 
         public void AddCurrency(int amount)

@@ -22452,6 +22452,7 @@ MonoBehaviour:
   - {fileID: 1212076977888065292}
   - {fileID: 226924843404626659}
   - {fileID: 6035248030999888082}
+  _buildingType: 1
   _randomizeModelOnAwake: 1
 --- !u!65 &6303142388445163083
 BoxCollider:
