@@ -10,7 +10,7 @@ Gameplay video: [**Watch**](https://globalgamejam.org/games/2025/bullastrum-7)
 
 # Download
 
-Executable: [**Download**](https://globalgamejam.org/games/2025/bullastrum-7)
+Executable: [**Download**](https://ggjv4.s3.us-west-1.amazonaws.com/files/games/2025/184589/exec/bullastrum.zip?VersionId=Bn3kF9fD4O2FT_AbAZ55PcnktTwHBpoB)
 
 # Build
 
