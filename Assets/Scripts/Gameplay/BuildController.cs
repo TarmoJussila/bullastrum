@@ -15,6 +15,7 @@ namespace Bullastrum.Gameplay
     {
         [Header("Raycast")]
         [SerializeField] private LayerMask _planetLayerMask;
+        [SerializeField] private LayerMask _buildingLayerMask;
         [SerializeField] private float _raycastMaxDistance;
         [SerializeField] private Transform _planetTransform;
         
@@ -41,6 +42,7 @@ namespace Bullastrum.Gameplay
         {
             _planetTransform = FindFirstObjectByType<Planet>().transform;
             _currentBuilding = Instantiate(GetCurrentBuildingPrefab(), _planetTransform, true);
+            _currentBuilding.SetColliderEnabled(false);
         }
 
         private void Update()
@@ -72,7 +74,14 @@ namespace Bullastrum.Gameplay
                         
                         if (Input.GetKeyDown(KeyCode.Mouse0))
                         {
+                            if (Physics.Raycast(_ray, out _raycastHit, _raycastMaxDistance, _buildingLayerMask))
+                            {
+                                Log.Message("Cannot build on top of another building");
+                                return;
+                            }
+                            
                             _buildings.Add(_currentBuilding);
+                            _currentBuilding.SetColliderEnabled(true);
                             _currentBuilding = null;
                             NotifyBuildingPlaced();
                         }
@@ -81,6 +90,7 @@ namespace Bullastrum.Gameplay
                     {
                         _currentBuilding = Instantiate(GetCurrentBuildingPrefab(), _planetTransform, true);
                         _currentBuilding.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
+                        _currentBuilding.SetColliderEnabled(false);
                     }
                 }
             }

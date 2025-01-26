@@ -16859,7 +16859,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4680022332362261406}
   - component: {fileID: 2103201192660845002}
-  m_Layer: 0
+  - component: {fileID: 949810394405844381}
+  m_Layer: 9
   m_Name: Building_Population
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16904,6 +16905,27 @@ MonoBehaviour:
   - {fileID: 2806685535367315948}
   - {fileID: 7831805167987370809}
   _randomizeModelOnAwake: 1
+--- !u!65 &949810394405844381
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8895293624520803335}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!1 &8901525582822027059
 GameObject:
   m_ObjectHideFlags: 0

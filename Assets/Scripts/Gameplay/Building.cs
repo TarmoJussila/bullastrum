@@ -10,6 +10,8 @@ namespace Bullastrum.Gameplay
         
         [Header("Settings")]
         [SerializeField] private bool _randomizeModelOnAwake = true;
+        
+        private BoxCollider _boxCollider;
 
         private void Awake()
         {
@@ -27,6 +29,15 @@ namespace Bullastrum.Gameplay
                 model.SetActive(false);
             }
             _models[randomIndex].SetActive(true);
+        }
+
+        public void SetColliderEnabled(bool isEnabled)
+        {
+            if (_boxCollider == null)
+            {
+                _boxCollider = GetComponent<BoxCollider>();
+            }
+            _boxCollider.enabled = isEnabled;
         }
     }
 }
