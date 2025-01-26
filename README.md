@@ -6,7 +6,7 @@ The game was created in 48 hours during the Global Game Jam / Finnish Game Jam 2
 
 # Watch
 
-Gameplay video: [**Watch**](https://globalgamejam.org/games/2025/bullastrum-7)
+Gameplay video: [**Watch**](https://youtu.be/8EO6toj8yTE)
 
 # Download
 
