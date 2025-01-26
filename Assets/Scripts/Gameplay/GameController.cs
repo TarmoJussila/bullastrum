@@ -16,6 +16,7 @@ namespace Bullastrum.Gameplay
         public int Population => _population;
         public int Production => _production;
         public int Currency => _currency;
+        public bool GameActive => _gameActive;
         
         [SerializeField] private int _population;
         [SerializeField] private int _production;

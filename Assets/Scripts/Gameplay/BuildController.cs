@@ -45,6 +45,11 @@ namespace Bullastrum.Gameplay
 
         private void Update()
         {
+            if (!GameController.Instance.GameActive)
+            {
+                return;
+            }
+            
             if (_buildingEnabled)
             {
                 _ray = CameraController.Instance.Camera.ScreenPointToRay(Input.mousePosition);
