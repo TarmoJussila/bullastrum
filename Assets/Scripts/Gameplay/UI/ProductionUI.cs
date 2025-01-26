@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Bullastrum.Gameplay.UI
