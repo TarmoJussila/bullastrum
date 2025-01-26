@@ -58,5 +58,10 @@ namespace Bullastrum.Gameplay
             OnCurrencyChanged?.Invoke(_currency);
             Log.Message("Currency changed: " + _currency);
         }
+
+        public void RemoveCurrency(int amount)
+        {
+            AddCurrency(-amount);
+        }
     }
 }

@@ -21,6 +21,9 @@ namespace Bullastrum.Gameplay
         [Header("Prefabs")]
         [SerializeField] private Building _populationBuildingPrefab;
         [SerializeField] private Building _productionBuildingPrefab;
+
+        [Header("Settings")]
+        [SerializeField] private int _buildCost = 100;
         
         [Header("Debug")]
         [SerializeField] private bool _buildingEnabled = true;
@@ -55,6 +58,12 @@ namespace Bullastrum.Gameplay
                     {
                         _currentBuilding.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
 
+                        if (GameController.Instance.Currency < _buildCost)
+                        {
+                            Log.Message("Not enough currency to build: " + _buildingType);
+                            return;
+                        }
+                        
                         if (Input.GetKeyDown(KeyCode.Mouse0))
                         {
                             _buildings.Add(_currentBuilding);
@@ -91,6 +100,7 @@ namespace Bullastrum.Gameplay
             {
                 GameController.Instance.AddProduction();
             }
+            GameController.Instance.RemoveCurrency(_buildCost);
             AudioPlayer.Instance.Play();
         }
 
