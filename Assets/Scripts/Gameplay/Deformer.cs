@@ -1,6 +1,8 @@
 ﻿using Bullastrum.Utility;
+using Unity.Mathematics;
 using UnityEngine;
 using ColorUtility = Bullastrum.Utility.ColorUtility;
+using Random = UnityEngine.Random;
 
 namespace Bullastrum.Gameplay
 {
@@ -31,7 +33,7 @@ namespace Bullastrum.Gameplay
         [SerializeField] private Material _material;
         
         [Header("Debug")]
-        [SerializeField] private bool _startDeformed = false;
+        [SerializeField] private bool _startDeformed = true;
         [SerializeField] private float _randomDeformPointRadius = 1.0f;
         [SerializeField] private ColorUtility.Color _randomDeformPointColor;
 
@@ -51,6 +53,7 @@ namespace Bullastrum.Gameplay
             if (_startDeformed)
             {
                 Deform();
+                Noise();
             }
         }
 

@@ -1,6 +1,8 @@
 ﻿using System;
+using Bullastrum.Gameplay.UI;
 using Bullastrum.Utility;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Bullastrum.Gameplay
 {
@@ -19,13 +21,25 @@ namespace Bullastrum.Gameplay
         [SerializeField] private int _production;
         [SerializeField] private int _currency;
         [SerializeField] private float _economyUpdateRate = 10f;
+        [SerializeField] private int _startingCurrency = 1000;
 
         private int _currencyRevenue;
         private int _currencyExpenses;
         private float _timer;
-        
+        private bool _gameActive = false;
+
+        private void Start()
+        {
+            ResetGame();
+        }
+
         private void Update()
         {
+            if (!_gameActive)
+            {
+                return;
+            }
+            
             _timer += Time.deltaTime;
             if (_timer >= _economyUpdateRate)
             {
@@ -35,6 +49,12 @@ namespace Bullastrum.Gameplay
                 int profit = _currencyRevenue - _currencyExpenses;
                 AddCurrency(profit);
                 OnEconomyChanged?.Invoke(_currencyRevenue, _currencyExpenses, profit);
+
+                if (_currency < 0)
+                {
+                    Log.Message("Game Over");
+                    UIController.Instance.ShowGameOverUI();
+                }
             }
         }
 
@@ -62,6 +82,32 @@ namespace Bullastrum.Gameplay
         public void RemoveCurrency(int amount)
         {
             AddCurrency(-amount);
+        }
+
+        public void StartGame()
+        {
+            _gameActive = true;
+        }
+
+        public void PauseGame()
+        {
+            _gameActive = false;
+        }
+
+        public void ResetGame(bool reloadScene = false)
+        {
+            PauseGame();
+            _population = 0;
+            _production = 0;
+            _currency = _startingCurrency;
+            _currencyRevenue = 0;
+            _currencyExpenses = 0;
+            _timer = 0;
+
+            if (reloadScene)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 }

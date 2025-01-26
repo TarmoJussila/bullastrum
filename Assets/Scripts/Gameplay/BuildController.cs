@@ -39,6 +39,7 @@ namespace Bullastrum.Gameplay
 
         private void Start()
         {
+            _planetTransform = FindFirstObjectByType<Planet>().transform;
             _currentBuilding = Instantiate(GetCurrentBuildingPrefab(), _planetTransform, true);
         }
 

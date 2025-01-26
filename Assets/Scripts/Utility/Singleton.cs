@@ -4,41 +4,29 @@ namespace Bullastrum.Utility
 {
     public abstract class Singleton<T> : MonoBehaviour where T : Component
     {
+        private const bool DontDestroyOnLoadEnabled = false;
+
         private static T _instance;
 
         public static T Instance
         {
             get
-            { if (_instance == null)
-              {
-                  _instance = FindObjectOfType<T>();
-              }
-              return _instance; }
-        }
-
-        protected virtual void Reset()
-        {
-            var instances = FindObjectsOfType<T>();
-
-            if (instances != null && instances.Length > 1)
             {
-                Log.Message(GetType().ToString(), "Singleton already exists.", ColorUtility.Color.Red, Log.Type.Error);
-                DestroyImmediate(this);
-            }
-            else
-            {
-                var components = GetComponents<Component>();
-
-                if (components != null && components.Length <= 2)
+                if (_instance == null)
                 {
-                    transform.localPosition = Vector3.zero;
-                    name = GetType().ToString();
+                    _instance = FindFirstObjectByType<T>();
                 }
+                return _instance;
             }
         }
 
         protected virtual void Awake()
         {
+            if (!DontDestroyOnLoadEnabled)
+            {
+                return;
+            }
+            
             if (_instance == null)
             {
                 _instance = this as T;

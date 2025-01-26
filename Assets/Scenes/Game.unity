@@ -443,6 +443,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e79bb4b86a659d4eb7e688232ace71c, type: 3}
+--- !u!114 &1562168060 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114410676631289430, guid: 0e79bb4b86a659d4eb7e688232ace71c,
+    type: 3}
+  m_PrefabInstance: {fileID: 671605554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13213682061968744a16ff82f2936767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1769178502 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114398366050036890, guid: 971bfbb1c5300004c942dc2fc7a47ab4,
@@ -801,6 +813,71 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774356853089679436, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774356853089679436, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1562168060}
+    - target: {fileID: 2774356853089679436, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ResetGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774356853089679436, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Bullastrum.Gameplay.GameController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774356853089679436, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774356853089679436, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5146616435517069097, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5146616435517069097, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5146616435517069097, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1562168060}
+    - target: {fileID: 5146616435517069097, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5146616435517069097, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: StartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 5146616435517069097, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Bullastrum.Gameplay.GameController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5146616435517069097, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5482802130836365834, guid: 89c806caa1f0a458eb97a9a4f17bdaf6,
         type: 3}
