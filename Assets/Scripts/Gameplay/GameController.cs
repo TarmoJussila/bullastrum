@@ -29,11 +29,13 @@ namespace Bullastrum.Gameplay
         private int _currencyRevenue;
         private int _currencyExpenses;
         private float _timer;
-        private bool _gameActive = false;
+        private bool _gameActive;
 
         private const int BaseBuildCost = 100;
         private const float BuildCostIncreaseMultiplier = 0.25f;
         private const float PopulationProductionMultiplier = 0.5f;
+        private const float PopulationExpensesMultiplier = 1f;
+        private const float ProductionExpensesMultiplier = 0.5f;
 
         private void Start()
         {
@@ -54,7 +56,7 @@ namespace Bullastrum.Gameplay
                 int productionMultiplier = Mathf.CeilToInt(_population * PopulationProductionMultiplier);
                 int baseProduction = _production;
                 _currencyRevenue = _production * productionMultiplier;
-                _currencyExpenses = _population;
+                _currencyExpenses = Mathf.FloorToInt((_population * PopulationExpensesMultiplier) + (_production * ProductionExpensesMultiplier));
                 int profit = _currencyRevenue - _currencyExpenses;
                 AddCurrency(profit, true);
                 OnEconomyChanged?.Invoke(_currencyRevenue, _currencyExpenses, profit, baseProduction, productionMultiplier);
