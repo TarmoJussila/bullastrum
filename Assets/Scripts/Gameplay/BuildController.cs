@@ -2,13 +2,11 @@
 using Bullastrum.Gameplay.UI;
 using Bullastrum.Utility;
 using UnityEngine;
-using ColorUtility = Bullastrum.Utility.ColorUtility;
 
 namespace Bullastrum.Gameplay
 {
     public enum BuildingType
     {
-        Demolish = -1,
         PopulationBuilding = 0,
         ProductionBuilding = 1,
     }
@@ -29,11 +27,6 @@ namespace Bullastrum.Gameplay
         [Header("Settings")]
         [SerializeField] private Color _worldTextCurrencyColor;
         [SerializeField] private Color _worldTextInvalidColor;
-        
-        [Header("Debug")]
-        [SerializeField] private bool _buildingEnabled = true;
-        [SerializeField] private float _raycastHitPointRadius = 1.0f;
-        [SerializeField] private ColorUtility.Color _raycastHitPointColor;
 
         private Ray _ray;
         private RaycastHit _raycastHit;
@@ -43,7 +36,7 @@ namespace Bullastrum.Gameplay
         private readonly List<Building> _buildings = new List<Building>();
         private BuildingType _buildingType;
         private bool _demolishMode;
-
+        
         private void Start()
         {
             _demolishMode = false;
@@ -59,112 +52,108 @@ namespace Bullastrum.Gameplay
                 return;
             }
             
-            if (_buildingEnabled)
+            _ray = CameraController.Instance.Camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(_ray, out _raycastHit, _raycastMaxDistance, _planetLayerMask))
             {
-                _ray = CameraController.Instance.Camera.ScreenPointToRay(Input.mousePosition);
+                _raycastHitPoint = _raycastHit.point;
+                Vector3 relativePosition = _raycastHitPoint - _raycastHit.transform.position;
+                Quaternion rotation = Quaternion.LookRotation(relativePosition);
 
-                if (Physics.Raycast(_ray, out _raycastHit, _raycastMaxDistance, _planetLayerMask))
+                if (_demolishMode)
                 {
-                    _raycastHitPoint = _raycastHit.point;
-                    Vector3 relativePosition = _raycastHitPoint - _raycastHit.transform.position;
-                    Quaternion rotation = Quaternion.LookRotation(relativePosition);
+                    UpdateDemolishMode(_raycastHitPoint, rotation);
+                    return;
+                }
+                    
+                UpdateBuildingMode(_raycastHitPoint, rotation);
+            }
+        }
 
-                    if (_demolishMode)
-                    {
-                        if (_demolishObject != null)
-                        {
-                            _demolishObject.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
-                        }
+        private void UpdateDemolishMode(Vector3 position, Quaternion rotation)
+        {
+            if (_demolishObject != null)
+            {
+                _demolishObject.transform.SetPositionAndRotation(position, rotation);
+            }
                         
-                        if (Input.GetKeyDown(KeyCode.Mouse0))
-                        {
-                            if (Physics.Raycast(_ray, out _raycastHit, _raycastMaxDistance, _buildingLayerMask))
-                            {
-                                var building = _raycastHit.transform.GetComponent<Building>();
-                                if (building != null)
-                                {
-                                    int demolishCost = GetBuildingDemolishCost(building.BuildingType);
-                                    GameController.Instance.AddCurrency(demolishCost);
-                                    if (building.BuildingType == BuildingType.PopulationBuilding)
-                                    {
-                                        GameController.Instance.RemovePopulation();
-                                    }
-                                    else if (building.BuildingType == BuildingType.ProductionBuilding)
-                                    {
-                                        GameController.Instance.RemoveProduction();
-                                    }
-                                    UIController.Instance.ShowWorldText("+" + demolishCost, _raycastHitPoint, _worldTextCurrencyColor, true);
-                                    Destroy(building.gameObject);
-                                }
-                                else
-                                {
-                                    Log.Message("Cannot demolish non-building object!");
-                                }
-                            }
-                        }
-                        return;
-                    }
-
-                    if (_currentBuilding != null)
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (Physics.Raycast(_ray, out _raycastHit, _raycastMaxDistance, _buildingLayerMask))
+                {
+                    var building = _raycastHit.transform.GetComponent<Building>();
+                    if (building != null)
                     {
-                        _currentBuilding.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
-                        
-                        if (Input.GetKeyDown(KeyCode.Mouse0))
+                        int demolishCost = GetBuildingDemolishCost(building.BuildingType);
+                        GameController.Instance.AddCurrency(demolishCost);
+                        if (building.BuildingType == BuildingType.PopulationBuilding)
                         {
-                            if (GameController.Instance.Currency < GetCurrentBuildingCost())
-                            {
-                                Log.Message("Not enough currency to build: " + _buildingType);
-                                UIController.Instance.ShowWorldText("Not enough currency", _raycastHitPoint, _worldTextInvalidColor);
-                                return;
-                            }
-                            
-                            if (Physics.Raycast(_ray, out _raycastHit, _raycastMaxDistance, _buildingLayerMask))
-                            {
-                                Log.Message("Cannot build on top of another building");
-                                UIController.Instance.ShowWorldText("Location is occupied", _raycastHitPoint, _worldTextInvalidColor);
-                                return;
-                            }
-                            
-                            _buildings.Add(_currentBuilding);
-                            _currentBuilding.SetColliderEnabled(true);
-                            _currentBuilding = null;
-                            NotifyBuildingPlaced();
+                            GameController.Instance.RemovePopulation();
                         }
+                        else if (building.BuildingType == BuildingType.ProductionBuilding)
+                        {
+                            GameController.Instance.RemoveProduction();
+                        }
+                        UIController.Instance.ShowWorldText("+" + demolishCost, position, _worldTextCurrencyColor, true);
+                        Destroy(building.gameObject);
                     }
                     else
                     {
-                        _currentBuilding = Instantiate(GetCurrentBuildingPrefab(), _planetTransform, true);
-                        _currentBuilding.transform.SetPositionAndRotation(_raycastHitPoint, rotation);
-                        _currentBuilding.SetColliderEnabled(false);
+                        Log.Message("Cannot demolish non-building object!");
                     }
                 }
             }
         }
 
-        private void OnDrawGizmos()
+        private void UpdateBuildingMode(Vector3 position, Quaternion rotation)
         {
-            if (_raycastHitPoint != Vector3.zero)
+            if (_currentBuilding != null)
             {
-                Gizmos.color = ColorUtility.GetColor(_raycastHitPointColor);
-                Gizmos.DrawSphere(_raycastHitPoint, _raycastHitPointRadius);
+                _currentBuilding.transform.SetPositionAndRotation(position, rotation);
+                        
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    if (GameController.Instance.Currency < GetCurrentBuildingCost())
+                    {
+                        Log.Message("Not enough currency to build: " + _buildingType);
+                        UIController.Instance.ShowWorldText("Not enough currency", position, _worldTextInvalidColor);
+                        return;
+                    }
+                            
+                    if (Physics.Raycast(_ray, out _raycastHit, _raycastMaxDistance, _buildingLayerMask))
+                    {
+                        Log.Message("Cannot build on top of another building");
+                        UIController.Instance.ShowWorldText("Location is occupied", position, _worldTextInvalidColor);
+                        return;
+                    }
+                            
+                    _buildings.Add(_currentBuilding);
+                    _currentBuilding.SetColliderEnabled(true);
+                    _currentBuilding = null;
+                    NotifyBuildingPlaced(position);
+                }
+            }
+            else
+            {
+                _currentBuilding = Instantiate(GetCurrentBuildingPrefab(), _planetTransform, true);
+                _currentBuilding.transform.SetPositionAndRotation(position, rotation);
+                _currentBuilding.SetColliderEnabled(false);
             }
         }
 
-        private void NotifyBuildingPlaced()
+        private void NotifyBuildingPlaced(Vector3 position)
         {
             Log.Message("Building placed: " + _buildingType + " | Buildings: " + _buildings.Count);
             int buildCost = GetCurrentBuildingCost();
+            GameController.Instance.RemoveCurrency(buildCost);
             if (_buildingType == BuildingType.PopulationBuilding)
             {
-                GameController.Instance.RemoveCurrency(GameController.Instance.PopulationBuildCost);
                 GameController.Instance.AddPopulation();
             }
             else if (_buildingType == BuildingType.ProductionBuilding)
             {
-                GameController.Instance.RemoveCurrency(GameController.Instance.ProductionBuildCost);
                 GameController.Instance.AddProduction();
             }
-            UIController.Instance.ShowWorldText("-" + buildCost, _raycastHitPoint, _worldTextCurrencyColor, true);
+            UIController.Instance.ShowWorldText("-" + buildCost, position, _worldTextCurrencyColor, true);
             AudioPlayer.Instance.Play();
         }
 
@@ -226,8 +215,13 @@ namespace Bullastrum.Gameplay
             }
             DisableDemolishMode();
         }
+        
+        public void SetBuildingType(int buildingType)
+        {
+            SetBuildingType((BuildingType)buildingType);
+        }
 
-        public void SetDemolishMode()
+        public void EnableDemolishMode()
         {
             if (_currentBuilding != null)
             {
@@ -245,11 +239,6 @@ namespace Bullastrum.Gameplay
             {
                 Destroy(_demolishObject);
             }
-        }
-
-        public void SetBuildingType(int buildingType)
-        {
-            SetBuildingType((BuildingType)buildingType);
         }
     }
 }
