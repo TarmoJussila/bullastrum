@@ -4,7 +4,7 @@ namespace Bullastrum.Gameplay
 {
     public class Planet : MonoBehaviour
     {
-        public Vector3 CenterPoint { get { return transform.position; } }
+        public bool IsDragging => _isDragging;
         
         [SerializeField] private float _rotationSpeed = 100f;
 

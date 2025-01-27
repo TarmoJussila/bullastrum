@@ -36,11 +36,13 @@ namespace Bullastrum.Gameplay
         private readonly List<Building> _buildings = new List<Building>();
         private BuildingType _buildingType;
         private bool _demolishMode;
+        private Planet _planet;
         
         private void Start()
         {
             _demolishMode = false;
-            _planetTransform = FindFirstObjectByType<Planet>().transform;
+            _planet = FindFirstObjectByType<Planet>();
+            _planetTransform = _planet.transform;
             _currentBuilding = Instantiate(GetCurrentBuildingPrefab(), _planetTransform, true);
             _currentBuilding.SetColliderEnabled(false);
         }
@@ -48,6 +50,11 @@ namespace Bullastrum.Gameplay
         private void Update()
         {
             if (!GameController.Instance.GameActive)
+            {
+                return;
+            }
+            
+            if (_planet != null && _planet.IsDragging)
             {
                 return;
             }
