@@ -1,7 +1,5 @@
 ﻿using Bullastrum.Utility;
-using Unity.Mathematics;
 using UnityEngine;
-using ColorUtility = Bullastrum.Utility.ColorUtility;
 using Random = UnityEngine.Random;
 
 namespace Bullastrum.Gameplay
@@ -31,18 +29,24 @@ namespace Bullastrum.Gameplay
         
         [Header("Material")]
         [SerializeField] private Material _material;
+
+        [Header("Settings")]
+        [SerializeField] private bool _changeLightDirection = true;
+        [SerializeField] private float _lightChangeSpeed = 0.1f;
         
         [Header("Debug")]
         [SerializeField] private bool _startDeformed = true;
-        [SerializeField] private float _randomDeformPointRadius = 1.0f;
-        [SerializeField] private ColorUtility.Color _randomDeformPointColor;
 
         private Mesh _mesh;
         private MeshCollider _meshCollider;
         private Vector3[] _baseVertices;
         private Vector3[] _currentVertices;
+        private float _timer;
 
         private readonly Perlin _noise = new Perlin();
+        
+        private static readonly int Seed = Shader.PropertyToID("_Seed");
+        private static readonly int LightDirection = Shader.PropertyToID("_LightDir");
 
         private void Start()
         {
@@ -54,6 +58,17 @@ namespace Bullastrum.Gameplay
             {
                 Deform();
                 Noise();
+            }
+        }
+
+        private void Update()
+        {
+            if (_changeLightDirection)
+            {
+                _timer += Time.deltaTime;
+                float x = Mathf.Cos(_timer * _lightChangeSpeed);
+                float y = Mathf.Cos(_timer * _lightChangeSpeed);
+                UpdateLightDirection(new Vector3(x, y, -0.5f));
             }
         }
 
@@ -130,7 +145,7 @@ namespace Bullastrum.Gameplay
         public void Noise()
         {
             float seedValue = Mathf.PingPong(Time.time * 1.0f, 1.0f);
-            _material.SetFloat("_Seed", seedValue);
+            _material.SetFloat(Seed, seedValue);
         }
 
         private void RecalculateMesh()
@@ -148,6 +163,11 @@ namespace Bullastrum.Gameplay
             _mesh.RecalculateBounds();
 
             _meshCollider.sharedMesh = _mesh;
+        }
+        
+        public void UpdateLightDirection(Vector3 direction)
+        {
+            _material.SetVector(LightDirection, direction);
         }
     }
 }
