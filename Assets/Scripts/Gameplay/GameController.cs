@@ -33,6 +33,7 @@ namespace Bullastrum.Gameplay
 
         private const int BaseBuildCost = 100;
         private const float BuildCostIncreaseMultiplier = 0.25f;
+        private const float PopulationProductionMultiplier = 0.5f;
 
         private void Start()
         {
@@ -50,7 +51,7 @@ namespace Bullastrum.Gameplay
             if (_timer >= _economyUpdateRate)
             {
                 _timer = 0f;
-                int productionMultiplier = _population;
+                int productionMultiplier = Mathf.CeilToInt(_population * PopulationProductionMultiplier);
                 int baseProduction = _production;
                 _currencyRevenue = _production * productionMultiplier;
                 _currencyExpenses = _population;
