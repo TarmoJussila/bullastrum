@@ -34,9 +34,9 @@ namespace Bullastrum.Gameplay.UI
             OnEconomyChanged(0, 0, 0, 0, 0);
         }
 
-        private void OnCurrencyChanged(int count)
+        private void OnCurrencyChanged(int count, bool showAnimation)
         {
-            Initialize(count, true);
+            Initialize(count, showAnimation);
         }
         
         private void OnEconomyChanged(int revenue, int expenses, int profit, int baseProduction, int productionMultiplier)

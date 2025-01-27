@@ -10,7 +10,7 @@ namespace Bullastrum.Gameplay
     {
         public static Action<int> OnPopulationChanged;
         public static Action<int> OnProductionChanged;
-        public static Action<int> OnCurrencyChanged;
+        public static Action<int, bool> OnCurrencyChanged;
         public static Action<int, int, int, int, int> OnEconomyChanged;
         
         public int Population => _population;
@@ -55,7 +55,7 @@ namespace Bullastrum.Gameplay
                 _currencyRevenue = _production * productionMultiplier;
                 _currencyExpenses = _population;
                 int profit = _currencyRevenue - _currencyExpenses;
-                AddCurrency(profit);
+                AddCurrency(profit, true);
                 OnEconomyChanged?.Invoke(_currencyRevenue, _currencyExpenses, profit, baseProduction, productionMultiplier);
 
                 if (_currency < 0)
@@ -100,10 +100,10 @@ namespace Bullastrum.Gameplay
             }
         }
 
-        public void AddCurrency(int amount)
+        public void AddCurrency(int amount, bool showAnimation = false)
         {
             _currency += amount;
-            OnCurrencyChanged?.Invoke(_currency);
+            OnCurrencyChanged?.Invoke(_currency, showAnimation);
             Log.Message("Currency changed: " + _currency);
         }
 
