@@ -58,7 +58,8 @@ MonoBehaviour:
     type: 3}
   _demolishPrefab: {fileID: 8241595604000218067, guid: 1a6eda1ae23a0374bb2ae8a77d05805d,
     type: 3}
-  _worldTextColor: {r: 1, g: 0.4, b: 0.22352941, a: 1}
+  _worldTextCurrencyColor: {r: 1, g: 0.8745098, b: 0.4, a: 1}
+  _worldTextInvalidColor: {r: 1, g: 0.4, b: 0.22352941, a: 1}
   _buildingEnabled: 1
   _raycastHitPointRadius: 0.1
   _raycastHitPointColor: 4

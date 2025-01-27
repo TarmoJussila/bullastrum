@@ -55,9 +55,9 @@ namespace Bullastrum.Gameplay.UI
             _gameOverUI.SetActive(true);
         }
         
-        public void ShowWorldText(string text, Vector3 position, Color color)
+        public void ShowWorldText(string text, Vector3 position, Color color, bool skipCooldown = false)
         {
-            if (_timer <= 0f)
+            if (_timer <= 0f || skipCooldown)
             {
                 var worldTextObject = _worldTextPool.Find(x => x.IsActive == false);
                 if (worldTextObject == null)

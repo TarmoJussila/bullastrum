@@ -27,7 +27,8 @@ namespace Bullastrum.Gameplay
         [SerializeField] private GameObject _demolishPrefab;
 
         [Header("Settings")]
-        [SerializeField] private Color _worldTextColor;
+        [SerializeField] private Color _worldTextCurrencyColor;
+        [SerializeField] private Color _worldTextInvalidColor;
         
         [Header("Debug")]
         [SerializeField] private bool _buildingEnabled = true;
@@ -92,6 +93,7 @@ namespace Bullastrum.Gameplay
                                     {
                                         GameController.Instance.RemoveProduction();
                                     }
+                                    UIController.Instance.ShowWorldText("+" + demolishCost, _raycastHitPoint, _worldTextCurrencyColor, true);
                                     Destroy(building.gameObject);
                                 }
                                 else
@@ -112,14 +114,14 @@ namespace Bullastrum.Gameplay
                             if (GameController.Instance.Currency < GetCurrentBuildingCost())
                             {
                                 Log.Message("Not enough currency to build: " + _buildingType);
-                                UIController.Instance.ShowWorldText("Not enough currency", _raycastHitPoint, _worldTextColor);
+                                UIController.Instance.ShowWorldText("Not enough currency", _raycastHitPoint, _worldTextInvalidColor);
                                 return;
                             }
                             
                             if (Physics.Raycast(_ray, out _raycastHit, _raycastMaxDistance, _buildingLayerMask))
                             {
                                 Log.Message("Cannot build on top of another building");
-                                UIController.Instance.ShowWorldText("Location is occupied", _raycastHitPoint, _worldTextColor);
+                                UIController.Instance.ShowWorldText("Location is occupied", _raycastHitPoint, _worldTextInvalidColor);
                                 return;
                             }
                             
@@ -151,6 +153,7 @@ namespace Bullastrum.Gameplay
         private void NotifyBuildingPlaced()
         {
             Log.Message("Building placed: " + _buildingType + " | Buildings: " + _buildings.Count);
+            int buildCost = GetCurrentBuildingCost();
             if (_buildingType == BuildingType.PopulationBuilding)
             {
                 GameController.Instance.RemoveCurrency(GameController.Instance.PopulationBuildCost);
@@ -161,6 +164,7 @@ namespace Bullastrum.Gameplay
                 GameController.Instance.RemoveCurrency(GameController.Instance.ProductionBuildCost);
                 GameController.Instance.AddProduction();
             }
+            UIController.Instance.ShowWorldText("-" + buildCost, _raycastHitPoint, _worldTextCurrencyColor, true);
             AudioPlayer.Instance.Play();
         }
 
