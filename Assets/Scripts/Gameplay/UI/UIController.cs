@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Bullastrum.Utility;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace Bullastrum.Gameplay.UI
         [Header("Settings")]
         [SerializeField] private float _worldTextDelay = 0.5f;
         
+        private readonly List<WorldText> _worldTextPool = new List<WorldText>();
         private float _timer;
 
         protected override void Awake()
@@ -57,8 +59,13 @@ namespace Bullastrum.Gameplay.UI
         {
             if (_timer <= 0f)
             {
-                var worldTextObject = Instantiate(_worldTextPrefab, position, Quaternion.identity);
-                worldTextObject.Initialize(text, color);
+                var worldTextObject = _worldTextPool.Find(x => x.IsActive == false);
+                if (worldTextObject == null)
+                {
+                    worldTextObject = Instantiate(_worldTextPrefab, position, Quaternion.identity);
+                    _worldTextPool.Add(worldTextObject);
+                }
+                worldTextObject.Initialize(text, position, color);
                 _timer = _worldTextDelay;
             }
         }
